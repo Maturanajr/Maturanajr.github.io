@@ -161,7 +161,7 @@ window.onchange = function updateGridItems(){
         count += 1;
     }
     });
-    if ( count > 1 ){
+    if ( count > 1 || !Number.isInteger(Number(target.value))){
         target.value = ''
     }else{
         if (target.getAttribute('value') != ''){
