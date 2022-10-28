@@ -9,6 +9,7 @@ window.onload = function createGridItems(){
         grid.className = 'grid-item';
         grid.setAttribute('data-owner',null)
         grid.value= '';
+        grid.maxLength = '1'
         document.getElementById('gameGrid').appendChild(grid);
     }
 }
@@ -103,28 +104,65 @@ function calculateWinner(){
     }*/
 }
 
+window.oninput = function (){
+    //SET BACKGROUND COLOR TO PLAYER COLOR
+    var target = event.target;
+    if (currentTurn == '1'){
+        target.style.backgroundColor = 'red'
+        target.style.color = 'white'
+    }else{
+        target.style.backgroundColor = 'blue'
+        target.style.color = 'white'   
+    }
+    ///////
+    //keep background color from grid in default color
+    var gridItems = document.getElementsByClassName('grid-item');
+    var gridItemsList = []
+    for(let x = 0;x<gridItems.length;x++){
+        let gridItem = gridItems[x]
+        gridItemsList.push(gridItem)
+    }
+    
+    gridItemsList.forEach(gridItem=>{
+        if (gridItem.value == ''){
+            console.log('Vazio')
+            gridItem.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+            gridItem.style.color = 'black';
+        }
+    })
+    ///////
+}
+
 window.onchange = function updateGridItems(){
     var target = event.target;
     var id = target.id;
     var gridItems = document.getElementsByClassName('grid-item');
     var gridItemsList = []
-    if (target.style.backgroundColor == 'rgba(255, 0, 0, 0.8)'){
-        target.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
-    }
+    var gridItemsValueList = []
+
     
     for(let x = 0;x<gridItems.length;x++){
         let gridItem = gridItems[x]
-        gridItemsList.push(gridItem.value)
+        gridItemsValueList.push(gridItem.value)
+        gridItemsList.push(gridItem)
     }
+
+    //keep background color from grid in default color
+    gridItemsList.forEach(gridItem=>{
+        if (gridItem.value == ''){
+            gridItem.style.backgroundColor = 'rgba(255, 255, 255, 0.8)'
+            gridItem.style.color = 'black'
+        }
+    })
+    ///////
     let count = 0;
-    gridItemsList.forEach(element => {
+    gridItemsValueList.forEach(element => {
     if (element === target.value) {
         count += 1;
     }
     });
-    if ( count > 1 || Number(target.value) > 9 || !Number.isInteger(Number(target.value))){
+    if ( count > 1 ){
         target.value = ''
-        target.style.backgroundColor = 'rgba(255, 0, 0, 0.8)';
     }else{
         if (target.getAttribute('value') != ''){
             target.disabled = 'true';
@@ -179,5 +217,7 @@ function playAgain(){
     gridItemsList.forEach(item=>{
         item.value = ''
         item.disabled = ''
+        item.style.backgroundColor = 'rgba(255, 255, 255, 0.8)'
+        item.style.color = 'black'
     })
 }
