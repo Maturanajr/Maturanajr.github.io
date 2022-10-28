@@ -1,3 +1,5 @@
+@import url('https://css.gg/play-button-o.css');
+
 body {
     margin: 0;
     padding: 0;
@@ -48,3 +50,41 @@ body {
 #scoreblue{
     padding-left: 4rem;
 }
+
+.winnerEffect{
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    transform: translate(-50%,-50%);
+    background-color: white;
+    border-radius: 1rem;
+    height: 10rem;
+    width: 20rem;
+    display: none;
+    
+}
+
+.winnerName{
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+.playAgainButton{
+    background-color:darkcyan;
+    text-align: center;
+    width: 9rem;
+    height: 1.5rem;
+    left: 50%;
+    position: fixed;
+    transform: translate(-50%,0);
+    display: inline-flex;
+    padding: 0.1rem;
+    color: white;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+.playAgainButton:hover{
+    background-color: lightblue;
+}
+

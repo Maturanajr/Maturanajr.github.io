@@ -1,7 +1,7 @@
 var scoreRed = 0;
 var scoreBlue = 0;
 var currentTurn = '1';
-
+var gameStatus = false;
 
 window.onload = function createGridItems(){
     for(x=0; x<9;x++){
@@ -16,7 +16,6 @@ window.onload = function createGridItems(){
 
 function calculateWinner(){
     var gridItems = document.getElementsByClassName('grid-item');
-    var gridItemsDict = {};
     var gridNumbers = [];
     const winningConditions = [
         [0, 1, 2],
@@ -31,9 +30,7 @@ function calculateWinner(){
 
     for(let x = 0;x<gridItems.length;x++){
         let gridItem = gridItems[x]
-        let owner = gridItem.getAttribute('data-owner')
         let valueNumber = gridItem.value
-        gridItemsDict[x] = [owner,valueNumber]
         gridNumbers.push(gridItem.value)
     }
     const numbersToDeleteSet = new Set(gridNumbers); 
@@ -48,46 +45,62 @@ function calculateWinner(){
     winningConditions.forEach(element=>{
         var sum = element.reduce((partialSum, a) => partialSum + Number(gridNumbers[a]), 0);
         var rest = (14-sum)
-        remainingNumbers.forEach(numbers=>{
-            if (numbers < rest || remainingNumbers > 1){
-                hasChance = true;
-            }
-            else if (rest < 0){
-                blowLimit = true;
-            }
-            else if (rest == 0){
-                hasWinner = true;
+        let laneWithValue = 0
+        element.forEach(laneNumber=>{
+            if (gridItems[laneNumber].value != ''){
+                laneWithValue ++
             }
         })
-    })
-    if (!hasChance){
-        if (currentTurn == '1'){
-            scoreRed += 1;
-        }else{
-            scoreBlue += 1;
+        // VERIFY IF STILL HAVE CHANCE TO WIN
+        if (laneWithValue == 1){
+            remainingNumbers.forEach(numberA=>{
+                remainingNumbers.forEach(numberB=>{
+                    if (numberB != numberA){
+                        if (numberA + numberB == rest){
+                            hasChance = true;
+                        }
+                    }
+                })
+            })
+        }else if (laneWithValue == 2){
+            remainingNumbers.forEach(numberA=>{
+                if (numberA == rest){
+                    hasChance = true;
+                }
+            })
         }
+        /////////
+        if(laneWithValue >= 3){
+        remainingNumbers.forEach(numbers=>{
+                if (rest < 0){
+                    blowLimit = true;
+                }
+                else if (rest == 0){
+                    hasWinner = true;
+                }
+            })
+        }
+    })
+    if (hasWinner){
+        if (currentTurn == '1'){
+            scoreBlue += 1;
+            showWinner('2');
+        }else{
+            scoreRed += 1;
+            showWinner('1');
+        }
+    }
+    else if (!hasChance  && remainingNumbers.length <= 2){
+        showWinner('0');
+        }
+        /*
     }else if (blowLimit){
         if (currentTurn == '2'){
             scoreBlue += 1;
         }else{
             scoreRed += 1;
         }
-    }else if (hasWinner){
-        if (currentTurn == '1'){
-            scoreBlue += 1;
-        }else{
-            scoreRed += 1;
-        }
-    }
-}
-
-function setGridItemOwner(target){
-    target.setAttribute('data-owner',currentTurn)
-    if (currentTurn == '1'){
-        currentTurn = '2';
-    }else{
-        currentTurn = '1';
-    }
+    }*/
 }
 
 window.onchange = function updateGridItems(){
@@ -114,19 +127,57 @@ window.onchange = function updateGridItems(){
         target.style.backgroundColor = 'rgba(255, 0, 0, 0.8)';
     }else{
         if (target.getAttribute('value') != ''){
-            target.disabled = 'bDisabled';
-            setGridItemOwner(target);
+            target.disabled = 'true';
+            if (currentTurn == '1'){
+                currentTurn = '2';
+            }else{
+                currentTurn = '1'
+            }
         }
     }
 
     if(currentTurn == '1'){
-        document.getElementById('currentTurnInfo').innerHTML = 'Jogada do VERMELHO';
+        document.getElementById('currentTurnInfo').innerHTML = 'Jogada do Vermelho';
         document.getElementById('currentTurnInfo').style.color = 'red';
     }else{
-        document.getElementById('currentTurnInfo').innerHTML = 'Jogada do AZUL';
+        document.getElementById('currentTurnInfo').innerHTML = 'Jogada do Azul';
         document.getElementById('currentTurnInfo').style.color = 'blue';
     }
     calculateWinner();
     document.getElementById('scorered').innerHTML = 'Vermelho: '+scoreRed;
     document.getElementById('scoreblue').innerHTML = 'Azul: '+scoreBlue;
+}
+
+function showWinner(winner){
+    document.getElementsByClassName('gameFrame')[0].style.display = 'none';
+    document.getElementsByClassName('winnerEffect')[0].style.display = 'block';
+    document.body.style.backgroundColor = 'rgba(0,0,0,0.8)';
+    if(winner != '0'){
+        if(winner == '1'){
+            document.getElementsByClassName('winnerName')[0].innerHTML = 'Vermelho venceu!'
+            document.getElementsByClassName('winnerName')[0].style.color = 'red'
+        }else{
+            document.getElementsByClassName('winnerName')[0].innerHTML = 'Azul venceu!'
+            document.getElementsByClassName('winnerName')[0].style.color = 'blue'
+        }
+    }else{
+        document.getElementsByClassName('winnerName')[0].innerHTML = 'Empatou!'
+            document.getElementsByClassName('winnerName')[0].style.color = 'darkgray'
+    }
+}
+
+function playAgain(){
+    document.getElementsByClassName('gameFrame')[0].style.display = 'block';
+    document.getElementsByClassName('winnerEffect')[0].style.display = 'none';
+    document.body.style.backgroundColor = 'darkcyan';
+    let gridItems = document.getElementsByClassName('grid-item');
+    let gridItemsList = []
+    for(let x = 0;x<gridItems.length;x++){
+        let gridItem = gridItems[x]
+        gridItemsList.push(gridItem)
+    }
+    gridItemsList.forEach(item=>{
+        item.value = ''
+        item.disabled = ''
+    })
 }
