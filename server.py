@@ -122,7 +122,7 @@ terminalThread = threading.Thread(target=terminal)
 async def start_server():
     print('Server started')
     terminalThread.start()
-    await websockets.serve(new_client_connected,"192.168.56.1",53780)
+    await websockets.serve(new_client_connected,"167.114.196.45",53780)
 
 
 if __name__ == '__main__':
