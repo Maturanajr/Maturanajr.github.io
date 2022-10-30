@@ -162,7 +162,7 @@ document.getElementsByClassName('gameFrame')[0].style.display = 'none';
 document.getElementById('online').style.display = 'block';
     //ONLINE FUNCTIONS
 function createRoom(mode){
-    websocketClient = new WebSocket('wss://167.114.196.45:53780/');
+    websocketClient = new WebSocket('ws://167.114.196.45:53780/');
     const playerName = document.getElementById('playerNameText');
     if (mode == 'create'){
         roomID = document.getElementById('createRoomText');
