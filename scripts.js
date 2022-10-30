@@ -159,10 +159,10 @@ function playAgain(){
 };
 
 document.getElementsByClassName('gameFrame')[0].style.display = 'none';
-document.getElementById('serverMenu').style.display = 'block';
+document.getElementById('online').style.display = 'block';
     //ONLINE FUNCTIONS
 function createRoom(mode){
-    websocketClient = new WebSocket('ws://167.114.196.45:53780/');
+    websocketClient = new WebSocket('wss://167.114.196.45:53780/');
     const playerName = document.getElementById('playerNameText');
     if (mode == 'create'){
         roomID = document.getElementById('createRoomText');
@@ -186,7 +186,7 @@ function createRoom(mode){
             roomcreated = message.split('=')[1];
             if (roomcreated == 'TRUE'){
                 document.getElementById('gameFrame').style.display = 'block';
-                document.getElementById('serverMenu').style.display = 'none';
+                document.getElementById('online').style.display = 'none';
                 player1 = playerName.value;
                 gameState = 'waiting';
                 document.getElementById('currentTurnInfo').innerHTML = 'Aguardando outro jogador';
@@ -205,7 +205,7 @@ function createRoom(mode){
                 player2 = playerName.value;
                 currentTurn = player1;
                 document.getElementById('gameFrame').style.display = 'block';
-                document.getElementById('serverMenu').style.display = 'none';    
+                document.getElementById('online').style.display = 'none';    
             }else{
                 alert('Falha ao entrar na sala!');
             };
@@ -224,7 +224,7 @@ function createRoom(mode){
         // NOTIFICAÇÃO DE SAÍDA DO HOST
         else if(message.startsWith('HOSTLEFT')){
             document.getElementById('gameFrame').style.display = 'none';
-            document.getElementById('serverMenu').style.display = 'block';
+            document.getElementById('online').style.display = 'block';
             gameState = 'waiting';
             scorePlayer1 = 0;
             scorePlayer2 = 0;
