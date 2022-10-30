@@ -9,14 +9,39 @@
     <script src="scripts.js"></script>
 </head>
 <body>
-    <div class="winnerEffect">
+    <div class="online">
+
+        <div class="serverMenu" id="serverMenu">
+            <div>
+                <p class="labelRoomText">Nome do jogador</p>
+                <input type="text" id="playerNameText"></input>
+            </div>
+            <div id="createRoom">
+                <p class="labelRoomText">ID da sala</p>
+                <input type="number" id="createRoomText"></input>
+                <button class="serverSelectButton" id="bt_createRoom" onclick="createRoom('create')">Criar</button>
+            </div>
+            <div id="joinRoom">
+                <p class="labelRoomText">ID da sala</p>
+                <input type="number" id="joinRoomText"></input>
+                <button class="serverSelectButton" onclick="createRoom('join')">Entrar</button>
+            </div>
+        </div>
+        <div class="listRooms">
+            <h1>Lista de salas abertas</h1>
+            <div class="boxRooms">
+                EM CONSTRUÇÃO...
+            </div>
+        </div>
+    </div>
+        <div class="winnerEffect">
         <h1 class="winnerName">Azul venceu!</h1>
         <div class="playAgainButton" onclick="playAgain()">
             <i class="gg-play-button-o"></i>
             <p style="margin: 0.1rem; padding-left: 0.5rem;">Jogar novamente</p>
         </div>
     </div>
-    <div class="gameFrame">
+    <div class="gameFrame" id="gameFrame">
         <div class="topbar">
             <h1>X14 Game</h1>
             <h2>Game rules by Abner Henrique</h2>

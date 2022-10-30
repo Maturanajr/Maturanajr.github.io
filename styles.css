@@ -7,6 +7,7 @@ body {
 }
 .gameFrame {
     text-align: center;
+    display: none;
 }
 
 .gameGrid {
@@ -88,3 +89,30 @@ body {
     background-color: lightblue;
 }
 
+.serverMenu{
+    margin-top: 2rem;
+    background-color: white;
+    left: 50%;
+    position: fixed;
+    transform: translate(-50%,0);
+    text-align: center;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+.serverSelectButton{
+    width: 4rem;
+    text-align: center;
+}
+
+.listRooms{
+    height: auto;
+    width: 100%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,0);
+    text-align: center;
+}
+.boxRooms{
+    background-color: white;
+}
