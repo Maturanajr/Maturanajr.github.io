@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>X14 Game</title>
+    <link rel="stylesheet" href="cssreset.css">
     <link rel="stylesheet" href="styles.css">
     <script src="scripts.js"></script>
 </head>
@@ -17,28 +18,35 @@
                 <input type="text" id="playerNameText"></input>
             </div>
             <div id="createRoom">
-                <p class="labelRoomText">ID da sala</p>
-                <input type="number" id="createRoomText"></input>
+                <p class="labelRoomText">Criar uma sala</p>
+                <input minlength="1" type="number" id="createRoomText"></input>
                 <button class="serverSelectButton" id="bt_createRoom" onclick="createRoom('create')">Criar</button>
             </div>
             <div id="joinRoom">
-                <p class="labelRoomText">ID da sala</p>
-                <input type="number" id="joinRoomText"></input>
+                <p class="labelRoomText">Entrar na sala</p>
+                <input minlength="1" type="number" id="joinRoomText"></input>
                 <button class="serverSelectButton" onclick="createRoom('join')">Entrar</button>
             </div>
         </div>
         <div class="listRooms">
-            <h1>Lista de salas abertas</h1>
-            <div class="boxRooms">
-                EM CONSTRUÇÃO...
+            <h1 class="headroomsContainer">Lista de salas abertas</h1>
+            <div class="roomsContainer">
+            <div class="roomItemHeader">
+                <h1>Nome da sala</h1>
+                <h1>Nome do host</h1>
+                <h1>Players</h1>
+            </div>
+            <div class="roomItemContainer"></div>
             </div>
         </div>
     </div>
+    <div class="winnerEffectBox">
         <div class="winnerEffect">
-        <h1 class="winnerName">Azul venceu!</h1>
-        <div class="playAgainButton" onclick="playAgain()">
-            <i class="gg-play-button-o"></i>
-            <p style="margin: 0.1rem; padding-left: 0.5rem;">Jogar novamente</p>
+            <h1 class="winnerName">Azul venceu!</h1>
+            <div class="playAgainButton" onclick="playAgain()">
+                <i class="gg-play-button-o"></i>
+                <p style="margin-right: 0.5rem;">Jogar novamente</p>
+            </div>
         </div>
     </div>
     <div class="gameFrame" id="gameFrame">

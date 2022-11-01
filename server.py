@@ -1,9 +1,11 @@
 import asyncio
-import cmd
-from http import client
+import genCert
 import websockets
 from websockets.exceptions import ConnectionClosedOK,ConnectionClosed,ConnectionClosedError
 import threading
+import ssl
+import json
+
 
 # create handler for each connection
 class GameRoom():
@@ -23,6 +25,8 @@ async def send_message(message):
         await client.send(message)
 
 async def new_client_connected(client_socket, path):
+    global CLIENT_SOCKET_LIST
+    global ROOM_LIST
     try:
         #CHECK AND DELETE EMPTY ROOMS
         for room,socket in ROOM_LIST.items():
@@ -34,7 +38,15 @@ async def new_client_connected(client_socket, path):
         while True:
             msg = await  client_socket.recv() 
             print('Message received: {} - FROM:{}'.format(msg,client_socket))
-            if msg.startswith('CREATE'):
+            if msg.startswith('GETROOMS'):
+                list_rooms = []
+                for roomName,room in ROOM_LIST.items():
+                    qtPlayers = len(room.Players)
+                    list_rooms.append({"name":roomName,"players":qtPlayers, "hostname":list(room.Players.keys())[0]})
+                list_rooms = json.dumps(list_rooms)
+                await client_socket.send('ROOMLIST={}'.format(list_rooms))        
+           
+            elif msg.startswith('CREATE'):
                 try:
                     playerName = msg.split('=')[2]
                     roomID = msg.split('=')[1]
@@ -53,12 +65,15 @@ async def new_client_connected(client_socket, path):
                     playerName = msg.split('=')[2]
                     roomID = msg.split('=')[1]
                     room = ROOM_LIST[roomID]
+                    if len(room.Players) >= room.MaxPlayers:
+                        await client_socket.send('ROOMJOINED=FALSE=MAXPLAYER')
+                        continue
                     host = list(room.Players.keys())[0]
                     room.Players[playerName] = client_socket
                     await room.Players[host].send('PLAYERJOIN={}'.format(playerName))
                     await client_socket.send('ROOMJOINED={}'.format(host))
                 except:
-                    await client_socket.send('ROOMJOINED=FALSE')
+                    await client_socket.send('ROOMJOINED=FALSE=')
             elif msg.startswith('UPDATEGRID'):
                 grid = msg.split('=')[2]
                 roomID = msg.split('=')[1]
@@ -84,20 +99,16 @@ async def new_client_connected(client_socket, path):
         print(e)
         print('Client has disconnected. {}'.format(client_socket))
         for room in ROOM_LIST:
-            try:
-                players = room.Players
-                for player in players:
-                    if client_socket == player:
-                        host = list(room.Players.keys())[0]
-                        if host == client_socket:
-                            for allPlayer in players:
-                                allPlayer.send('HOSTLEFT')   
-                        else:
-                            host.send('PLAYERLEFT')
-            except:
-                pass
-        CLIENT_SOCKET_LIST.remove(client_socket)
-                    
+            print(room)
+            for playerName,socket in ROOM_LIST[room].Players.items():
+                print(playerName)
+                if client_socket == socket:
+                    print(playerName,socket)
+                    del ROOM_LIST[room].Players[playerName]
+        try:
+            CLIENT_SOCKET_LIST.remove(client_socket)
+        except:
+            pass            
 
 CMD_LIST = {
     'count':['count_users'],
@@ -118,11 +129,19 @@ def terminal():
                 print('ROOM ID NOT FOUND')
 
 terminalThread = threading.Thread(target=terminal)
- 
+
+
+
 async def start_server():
     print('Server started')
     terminalThread.start()
-    await websockets.serve(new_client_connected,"167.114.196.45",53780)
+    # tls configs
+    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    ssl_cert = "selfsigned.crt"
+    ssl_key = "private.key"
+    genCert.cert_gen()
+    ssl_context.load_cert_chain(ssl_cert, keyfile=ssl_key)
+    await websockets.serve(new_client_connected,"localhost",53780)
 
 
 if __name__ == '__main__':

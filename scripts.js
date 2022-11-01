@@ -8,22 +8,32 @@ var currentTurn = '';
 var sessionType = '';
 var websocketClient;
 var roomID;
-var lastPoint = '';
+var whoStarted = '';
 
 window.onload = function createGridItems(){
     for(x=0; x<9;x++){
         var grid = document.createElement('input');
         grid.className = 'grid-item';
-        grid.setAttribute('data-owner',null)
         grid.value= '';
         grid.maxLength = '1'
         document.getElementById('gameGrid').appendChild(grid);
-    }
-}
+    };
+    //HIDE WINDOWS UNTIL CONNECT SERVER
+    document.getElementsByClassName('gameFrame')[0].style.display = 'none';
+    document.getElementById('online').style.display = 'none';
+    //CONNECT TO SERVER
+    websocketClient = new WebSocket('ws://127.0.0.1:53780');
+    //WAIT LOAD AND GET ROOMS OPEN. SHOW WINDOWS
+    websocketClient.onopen = function(){
+        document.getElementById('online').style.display = 'flex';
+        updateRoomList();
+        console.log('Connected to server');
+        };  
+};
 
 function showWinner(winner){
     document.getElementsByClassName('gameFrame')[0].style.display = 'none';
-    document.getElementsByClassName('winnerEffect')[0].style.display = 'block';
+    document.getElementsByClassName('winnerEffectBox')[0].style.display = 'flex';
     document.body.style.backgroundColor = 'rgba(0,0,0,0.8)';
     if(winner != '0'){
         if(winner == player1){
@@ -128,8 +138,8 @@ function calculateWinner(){
 
 function playAgain(){
     const playerName = document.getElementById('playerNameText').value;
-    document.getElementsByClassName('gameFrame')[0].style.display = 'block';
-    document.getElementsByClassName('winnerEffect')[0].style.display = 'none';
+    document.getElementsByClassName('gameFrame')[0].style.display = 'flex';
+    document.getElementsByClassName('winnerEffectBox')[0].style.display = 'none';
     document.body.style.backgroundColor = 'darkcyan';
     gameState = 'playagain';
  
@@ -145,10 +155,12 @@ function playAgain(){
         item.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
         item.style.color = 'black';
     });
-    if (currentTurn == player1){
+    if (whoStarted == player1){
         currentTurn = player2;
+        whoStarted = player2;
     }else{
         currentTurn = player1;
+        whoStarted = player1;
     };
     updateHostGame();
     //NOTIFY PLAYAGAIN
@@ -158,26 +170,51 @@ function playAgain(){
     ///////////////
 };
 
-document.getElementsByClassName('gameFrame')[0].style.display = 'none';
-document.getElementById('online').style.display = 'block';
+function updateRoomList(){
+    websocketClient.send('GETROOMS');
+    websocketClient.onmessage = function(message){
+        console.log()
+        if (message.data.startsWith('ROOMLIST')){
+            roomlist = message.data.split('=')[1];
+            console.log(message.data);
+            roomlistdict = JSON.parse(roomlist);
+            roomlistdict.forEach(room=>{
+                horizontalSeparator = document.createElement('hr');
+                horizontalSeparator.className = 'hr';
+                let roomitem = document.createElement('div');
+                roomitem.className = 'roomItem';
+                document.getElementsByClassName('roomItemContainer')[0].appendChild(horizontalSeparator);
+                document.getElementsByClassName('roomItemContainer')[0].appendChild(roomitem);
+                let roomname = document.createElement('p');
+                roomname.innerHTML = room.name;
+                let roomhost = document.createElement('p');
+                roomhost.innerHTML = room.hostname;
+                let roomplayers = document.createElement('p');
+                roomplayers.innerHTML = room.players + '/2';
+
+                roomitem.appendChild(roomname);
+                roomitem.appendChild(roomhost);
+                roomitem.appendChild(roomplayers);
+            })
+            
+        };
+    };
+};
+
+
     //ONLINE FUNCTIONS
 function createRoom(mode){
-    websocketClient = new WebSocket('wss://167.114.196.45:53780/');
     const playerName = document.getElementById('playerNameText');
+    //SEND MESSAGE TO CREATE ROM
     if (mode == 'create'){
         roomID = document.getElementById('createRoomText');
-        websocketClient.onopen = function(){
-            websocketClient.send('CREATE='+roomID.value+'='+playerName.value);
-            console.log('Connected to server');
-        };
+        websocketClient.send('CREATE='+roomID.value+'='+playerName.value);
+    //SEND MESSAGE TO JOIN EXISTENT ROOM
     }else if (mode == 'join'){
         roomID = document.getElementById('joinRoomText');
-        websocketClient.onopen = function(){
-            websocketClient.send('JOIN='+roomID.value+'='+playerName.value);
-            console.log('Connected to server');
+        websocketClient.send('JOIN='+roomID.value+'='+playerName.value);
     };
-    };
-
+    //////////////
     websocketClient.onmessage = function(message){
         console.log(message.data);
         message = message.data;
@@ -185,7 +222,7 @@ function createRoom(mode){
         if (message.startsWith('ROOMCREATED')){
             roomcreated = message.split('=')[1];
             if (roomcreated == 'TRUE'){
-                document.getElementById('gameFrame').style.display = 'block';
+                document.getElementById('gameFrame').style.display = 'flex';
                 document.getElementById('online').style.display = 'none';
                 player1 = playerName.value;
                 gameState = 'waiting';
@@ -204,16 +241,23 @@ function createRoom(mode){
                 player1 = roomjoined;
                 player2 = playerName.value;
                 currentTurn = player1;
-                document.getElementById('gameFrame').style.display = 'block';
+                whoStarted = player1;
+                document.getElementById('gameFrame').style.display = 'flex';
                 document.getElementById('online').style.display = 'none';    
             }else{
-                alert('Falha ao entrar na sala!');
+                if (message.split('=')[2] == 'MAXPLAYER'){
+                    alert('A sala está cheia');
+                }else{
+                    alert('Falha ao entrar na sala!');
+                };
+
             };
         }
         ///NOTIFICAÇÃO DE ENTRADA DE JOGADOR AO HOST
         else if (message.startsWith('PLAYERJOIN')){
             player2 = message.split('=')[1];
-            currentTurn = player1
+            currentTurn = player1;
+            whoStarted = player1;
         }
         //NOTIFICAÇÃO DE SAÍDA DE PLAYER AO HOST
         else if(message.startsWith('PLAYERLEFT')){
@@ -224,7 +268,7 @@ function createRoom(mode){
         // NOTIFICAÇÃO DE SAÍDA DO HOST
         else if(message.startsWith('HOSTLEFT')){
             document.getElementById('gameFrame').style.display = 'none';
-            document.getElementById('online').style.display = 'block';
+            document.getElementById('online').style.display = 'flex';
             gameState = 'waiting';
             scorePlayer1 = 0;
             scorePlayer2 = 0;
