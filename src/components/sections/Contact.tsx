@@ -1,29 +1,25 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import Card from '../ui/Card';
-import Input from '../ui/Input';
 import Button from '../ui/Button';
 import { contactInfo, contactSection, personalInfo } from '../../data/portfolio-info';
 import { renderContactIcon } from '../ui/Icons';
 
 interface FormData {
-  name: string;
-  email: string;
   message: string;
 }
 
 const Contact = () => {
   const { isDark } = useTheme();
   const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
     message: '',
   });
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const mailtoLink = `mailto:${personalInfo.email}?subject=Contato de ${formData.name}&body=${formData.message}%0D%0A%0D%0ADe: ${formData.email}`;
-    window.location.href = mailtoLink;
+    const message = formData.message.trim() || contactSection.form.messagePlaceholder;
+    const whatsappLink = `https://wa.me/55${personalInfo.whatsapp}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappLink, '_blank');
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -94,35 +90,10 @@ const Contact = () => {
 
           {/* Contact Form */}
           <Card className="p-8">
+            <h3 className={`text-xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+              Envie uma mensagem via WhatsApp
+            </h3>
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className={`block mb-2 font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                  {contactSection.form.nameLabel}
-                </label>
-                <Input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder={contactSection.form.namePlaceholder}
-                  required
-                />
-              </div>
-
-              <div>
-                <label className={`block mb-2 font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                  {contactSection.form.emailLabel}
-                </label>
-                <Input
-                  type="email"
-                  name="email"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder={contactSection.form.emailPlaceholder}
-                  required
-                />
-              </div>
-
               <div>
                 <label className={`block mb-2 font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                   {contactSection.form.messageLabel}
@@ -132,8 +103,7 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder={contactSection.form.messagePlaceholder}
-                  rows={5}
-                  required
+                  rows={10}
                   className={`w-full px-4 py-3 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                     isDark
                       ? 'bg-gray-800 border border-gray-700 text-gray-100 placeholder-gray-500'

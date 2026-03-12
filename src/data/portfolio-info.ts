@@ -1,8 +1,9 @@
 // Informações Pessoais
 export const personalInfo = {
   name: 'Ailton Maturana',
-  title: 'Desenvolvedor Full-Stack',
+  title: 'Desenvolvedor Full-Cycle',
   email: 'ailtonmaturanaj@gmail.com',
+  whatsapp: '15988001726',
   github: 'https://github.com/Maturanajr',
   githubUsername: 'Maturanajr',
   location: 'Sorocaba, SP',
@@ -24,7 +25,7 @@ export const heroSection = {
   greeting: 'Olá, eu sou',
   name: personalInfo.name,
   title: personalInfo.title,
-  description: 'Product Owner com experiência em desenvolvimento Full-Stack, especializado em Python, React, Node.js e automação.',
+  description: 'Desenvolvedor senior com experiência Full-Cycle, especializado em Python, React, infraestrutura e automações.',
   cta: {
     primary: 'Entre em Contato',
     secondary: 'Ver GitHub',
@@ -49,16 +50,16 @@ export const socialLinks = [
 export const aboutSection = {
   title: 'Sobre Mim',
   paragraphs: [
-    'Desenvolvedor Full-Stack com sólida experiência desde 2019, especializado em criar soluções robustas e escaláveis.',
+    'Desenvolvedor Full-Cycle com sólida experiência desde 2019, especializado em criar soluções robustas e escaláveis.',
     'Atualmente atuando como Product Owner na Embracon, liderando equipes de desenvolvimento e definindo estratégias tecnológicas para otimização de processos internos.',
     'Experiência comprovada em desenvolvimento de robôs de automação, APIs backend, interfaces React, e gerenciamento de infraestrutura com Docker, Airflow e cloud services.',
     'Formado em Engenharia Civil pela UNIP, combinando habilidades analíticas e de gestão de projetos com expertise técnica em programação.',
   ],
   stats: [
-    { label: 'Anos de Experiência', value: '6+' },
+    { label: 'Anos de Experiência', value: '8+' },
     { label: 'Projetos Concluídos', value: '50+' },
     { label: 'Tecnologias', value: '15+' },
-    { label: 'Usuários Ativos', value: '100+' },
+    { label: 'Usuários Ativos', value: '500+' },
   ],
 };
 
@@ -106,7 +107,7 @@ export const experiences = [
     description: 'Desenvolvimento de software de Copy Trading em Python com interface PySimpleGUI e conectividade via WebSockets.',
     highlights: [
       'Software com operação 24/7',
-      'Mais de 100 usuários cadastrados',
+      'Mais de 500 usuários cadastrados',
       'Dashboard para gestão de licenças',
       'Integração MongoDB',
     ],
@@ -118,44 +119,45 @@ export const skillCategories = [
   {
     category: 'Backend',
     skills: [
-      { name: 'Python', level: 95, icon: '🐍' },
-      { name: 'FastAPI', level: 90, icon: '⚡' },
+      { name: 'Python', level: 100, icon: '🐍' },
+      { name: 'FastAPI', level: 100, icon: '⚡' },
       { name: 'Node.js', level: 85, icon: '💚' },
-      { name: 'Express.js', level: 85, icon: '🚂' },
+      { name: 'Java', level: 50, icon: '☕︎' },
     ],
   },
   {
     category: 'Frontend',
     skills: [
-      { name: 'React', level: 90, icon: '⚛️' },
-      { name: 'JavaScript', level: 90, icon: '📜' },
-      { name: 'HTML/CSS', level: 95, icon: '🎨' },
-      { name: 'Tailwind CSS', level: 85, icon: '💨' },
+      { name: 'React', level: 100, icon: '⚛️' },
+      { name: 'JavaScript', level: 100, icon: '📜' },
+      { name: 'HTML/CSS', level: 100, icon: '🎨' },
+      { name: 'Tailwind CSS', level: 80, icon: '💨' },
     ],
   },
   {
     category: 'Database',
     skills: [
       { name: 'MongoDB', level: 90, icon: '🍃' },
-      { name: 'PostgreSQL', level: 85, icon: '🐘' },
+      { name: 'PostgreSQL', level: 90, icon: '🐘' },
       { name: 'SQL', level: 90, icon: '📊' },
     ],
   },
   {
     category: 'DevOps & Tools',
     skills: [
-      { name: 'Docker', level: 85, icon: '🐳' },
-      { name: 'Git', level: 90, icon: '📦' },
+      { name: 'Docker', level: 90, icon: '🐳' },
+      { name: 'Git', level: 100, icon: '📦' },
       { name: 'Airflow', level: 80, icon: '🌊' },
-      { name: 'WebSockets', level: 90, icon: '🔌' },
+      { name: 'Kubernetes', level: 90, icon: '🔌' },
     ],
   },
   {
     category: 'Automation',
     skills: [
-      { name: 'Playwright', level: 90, icon: '🎭' },
-      { name: 'Selenium', level: 85, icon: '🤖' },
+      { name: 'Playwright', level: 100, icon: '🎭' },
+      { name: 'Selenium', level: 100, icon: '🤖' },
       { name: 'OCR', level: 80, icon: '👁️' },
+      { name: 'Agno AI', level: 80, icon: '֎' },
     ],
   },
 ];
@@ -168,10 +170,17 @@ export const additionalSkills = [
   'Inglês Avançado',
   'Gestão de Equipes',
   'Product Management',
+  'AI flows & Chains'
 ];
 
 // Informações de Contato
 export const contactInfo = [
+  {
+    label: 'WhatsApp',
+    value: '(15) 98800-1726',
+    link: `https://wa.me/55${personalInfo.whatsapp}`,
+    icon: 'whatsapp',
+  },
   {
     label: 'Email',
     value: personalInfo.email,
@@ -202,8 +211,8 @@ export const contactSection = {
     emailLabel: 'Email',
     emailPlaceholder: 'seu@email.com',
     messageLabel: 'Mensagem',
-    messagePlaceholder: 'Sua mensagem...',
-    submitButton: 'Enviar Mensagem',
+    messagePlaceholder: 'Olá! Vi seu portfólio e gostaria de conversar sobre uma oportunidade...',
+    submitButton: 'Enviar via WhatsApp',
   },
 };
 
