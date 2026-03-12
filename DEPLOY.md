@@ -38,7 +38,21 @@ git push -u origin main
 npm run deploy
 ```
 
-Pronto! Seu site estará disponível em: **https://{username}.github.io**
+**O que acontece:**
+- O comando `npm run deploy` executa automaticamente:
+  1. `npm run build` - Compila o projeto
+  2. Cria/atualiza a branch `gh-pages` com os arquivos compilados
+  3. Faz push dessa branch para o GitHub
+
+**Branches no seu repositório:**
+- `master` (ou `main`): Código-fonte do projeto
+- `gh-pages`: Arquivos compilados (HTML, CSS, JS) - criada automaticamente
+
+O GitHub Pages serve o site a partir da branch `gh-pages`.
+
+Pronto! Seu site estará disponível em: **https://maturanajr.github.io**
+
+Aguarde alguns minutos para o GitHub processar o deploy.
 
 ---
 
@@ -111,12 +125,17 @@ git add .
 # Commit com mensagem descritiva
 git commit -m "Atualização: descrição das mudanças"
 
-# Enviar para o GitHub
+# Enviar para o GitHub (branch master/main)
 git push
 
-# Fazer deploy da nova versão
+# Fazer deploy da nova versão (atualiza branch gh-pages)
 npm run deploy
 ```
+
+**Importante:** 
+- `git push` atualiza seu código-fonte (branch master/main)
+- `npm run deploy` atualiza o site publicado (branch gh-pages)
+- Você precisa fazer AMBOS para manter tudo sincronizado
 
 ---
 
@@ -137,6 +156,14 @@ git config --global user.name "Seu Nome"
 git config --global user.email "seu@email.com"
 ```
 
+### Erro: "src refspec main does not match any"
+
+Você está na branch `master`, não `main`. Use:
+
+```bash
+git push -u origin master
+```
+
 ### Site não atualiza
 
 1. Limpe o cache do navegador (Ctrl + Shift + R)
@@ -145,6 +172,7 @@ git config --global user.email "seu@email.com"
    ```bash
    git log --oneline
    ```
+4. Verifique se a branch `gh-pages` foi atualizada no GitHub
 
 ### Imagens não aparecem
 
@@ -152,6 +180,19 @@ Certifique-se de que:
 - As imagens estão na pasta `public/`
 - Os caminhos começam com `/` (ex: `/foto_perfil.jpg`)
 - Você fez o build e deploy após adicionar as imagens
+
+### Ver todas as branches
+
+```bash
+# Ver branches locais
+git branch
+
+# Ver branches remotas
+git branch -r
+
+# Ver todas as branches
+git branch -a
+```
 
 ---
 
