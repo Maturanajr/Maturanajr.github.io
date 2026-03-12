@@ -2,6 +2,8 @@
 
 Portfolio interativo e profissional desenvolvido com React, TypeScript, Vite e Tailwind CSS.
 
+🌐 **Site:** https://maturanajr.github.io
+
 ## 🚀 Características
 
 - ⚡ **Performance**: Construído com Vite para carregamento ultra-rápido
