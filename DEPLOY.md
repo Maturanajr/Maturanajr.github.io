@@ -1,218 +1,168 @@
 # Guia de Deploy no GitHub Pages
 
-## 🚀 Opção 1: Repositório Principal (Recomendado)
+Este guia é para você que clonou este projeto e quer publicar seu próprio portfólio.
 
-Para publicar em `https://{username}.github.io` (URL principal, sem subpasta):
+## 📋 Pré-requisitos
 
-### Passo 1: Criar Repositório Especial
+- Node.js instalado
+- Conta no GitHub
+- Git configurado localmente
 
-1. Acesse: https://github.com/new
-2. Nome do repositório: `{username}.github.io` (exatamente esse nome)
-3. Deixe como público
-4. Não inicialize com README
-5. Clique em "Create repository"
+## 🚀 Passo a Passo
 
-### Passo 2: Configurar Git Local
+### 1. Personalize o Conteúdo
+
+Edite o arquivo `src/data/portfolio-info.ts` com suas informações:
+- Nome, email, links
+- Experiências profissionais
+- Habilidades
+- Projetos
+
+### 2. Crie seu Repositório no GitHub
+
+**Opção A: URL Principal (Recomendado)**
+- Nome do repositório: `{seu-usuario}.github.io`
+- Exemplo: `joaosilva.github.io`
+- Resultado: `https://joaosilva.github.io`
+
+**Opção B: URL com Subpasta**
+- Nome do repositório: qualquer nome (ex: `portfolio`)
+- Atualize `vite.config.ts`: `base: '/portfolio/'`
+- Atualize `package.json`: `"homepage": "https://{seu-usuario}.github.io/portfolio"`
+- Resultado: `https://joaosilva.github.io/portfolio`
+
+### 3. Configure o Git Local
 
 ```bash
-# Inicializar git (se ainda não foi feito)
-git init
+# Remover o remote origin antigo (se existir)
+git remote remove origin
 
-# Adicionar todos os arquivos
+# Adicionar seu repositório
+git remote add origin https://github.com/{seu-usuario}/{seu-repositorio}.git
+
+# Verificar sua branch atual
+git branch
+```
+
+### 4. Ajuste o Workflow (se necessário)
+
+Se sua branch principal for `main` (não `master`), edite `.github/workflows/deploy.yml`:
+
+```yaml
+on:
+  push:
+    branches: [ main ]  # Mude de 'master' para 'main'
+```
+
+### 5. Faça o Commit e Push
+
+```bash
+# Adicionar suas alterações
 git add .
 
-# Fazer o primeiro commit
-git commit -m "Initial commit: Portfolio com TypeScript"
+# Fazer commit
+git commit -m "Personalizar portfólio"
 
-# Adicionar o repositório remoto
-git remote add origin https://github.com/{username}/{username}.github.io.git
-
-# Enviar para o GitHub
+# Enviar para o GitHub (use master ou main conforme sua branch)
+git push -u origin master
+# OU
 git push -u origin main
 ```
 
-### Passo 3: Deploy
+### 6. Configure o GitHub Pages
 
-```bash
-# Fazer o deploy
-npm run deploy
-```
+1. Acesse: `https://github.com/{seu-usuario}/{seu-repositorio}/settings/pages`
 
-**O que acontece:**
-- O comando `npm run deploy` executa automaticamente:
-  1. `npm run build` - Compila o projeto
-  2. Cria/atualiza a branch `gh-pages` com os arquivos compilados
-  3. Faz push dessa branch para o GitHub
+2. Em **"Build and deployment"**:
+   - **Source**: Selecione **"GitHub Actions"**
 
-**Branches no seu repositório:**
-- `master` (ou `main`): Código-fonte do projeto
-- `gh-pages`: Arquivos compilados (HTML, CSS, JS) - criada automaticamente
+3. Aguarde 2-5 minutos
 
-O GitHub Pages serve o site a partir da branch `gh-pages`.
+4. Acesse seu site: `https://{seu-usuario}.github.io`
 
-Pronto! Seu site estará disponível em: **https://maturanajr.github.io**
+## ✅ Pronto!
 
-Aguarde alguns minutos para o GitHub processar o deploy.
-
----
-
-## 🎯 Opção 2: Repositório com Nome Personalizado
-
-Para publicar em `https://{username}.github.io/portfolio` (com subpasta):
-
-### Passo 1: Criar Repositório
-
-1. Acesse: https://github.com/new
-2. Nome do repositório: `portfolio` (ou qualquer nome)
-3. Deixe como público
-4. Clique em "Create repository"
-
-### Passo 2: Atualizar Configurações
-
-**package.json:**
-```json
-"homepage": "https://{username}.github.io/portfolio"
-```
-
-**vite.config.ts:**
-```typescript
-export default defineConfig({
-  plugins: [react()],
-  base: '/portfolio/',
-})
-```
-
-### Passo 3: Configurar Git e Deploy
-
-```bash
-# Inicializar git
-git init
-
-# Adicionar arquivos
-git add .
-
-# Commit
-git commit -m "Initial commit"
-
-# Adicionar repositório remoto
-git remote add origin https://github.com/{username}/portfolio.git
-
-# Enviar para o GitHub
-git push -u origin main
-
-# Deploy
-npm run deploy
-```
-
-### Passo 4: Configurar GitHub Pages
-
-1. Vá para: https://github.com/{username}/portfolio/settings/pages
-2. Em "Source", selecione: `gh-pages` branch
-3. Clique em "Save"
-
-Aguarde alguns minutos e acesse: **https://{username}.github.io/portfolio**
-
----
+Seu portfólio está no ar! O deploy acontece automaticamente a cada push.
 
 ## 🔄 Atualizações Futuras
 
-Sempre que fizer alterações:
+Sempre que quiser atualizar seu portfólio:
 
 ```bash
-# Adicionar mudanças
+# 1. Edite os arquivos (principalmente src/data/portfolio-info.ts)
+
+# 2. Commit e push
 git add .
-
-# Commit com mensagem descritiva
-git commit -m "Atualização: descrição das mudanças"
-
-# Enviar para o GitHub (branch master/main)
+git commit -m "Atualizar informações"
 git push
 
-# Fazer deploy da nova versão (atualiza branch gh-pages)
-npm run deploy
+# 3. GitHub Actions faz o deploy automaticamente!
 ```
-
-**Importante:** 
-- `git push` atualiza seu código-fonte (branch master/main)
-- `npm run deploy` atualiza o site publicado (branch gh-pages)
-- Você precisa fazer AMBOS para manter tudo sincronizado
-
----
 
 ## 🐛 Solução de Problemas
 
-### Erro: "gh-pages not found"
+### Site mostra 404
 
-```bash
-npm install --save-dev gh-pages
-```
-
-### Erro: "Permission denied"
-
-Configure suas credenciais do Git:
-
-```bash
-git config --global user.name "Seu Nome"
-git config --global user.email "seu@email.com"
-```
+1. Verifique se GitHub Pages está configurado para "GitHub Actions"
+2. Aguarde 5-10 minutos após o primeiro deploy
+3. Limpe o cache do navegador (Ctrl + Shift + R)
+4. Verifique os logs em: `https://github.com/{seu-usuario}/{seu-repositorio}/actions`
 
 ### Erro: "src refspec main does not match any"
 
 Você está na branch `master`, não `main`. Use:
-
 ```bash
 git push -u origin master
 ```
 
-### Site não atualiza
+### Build falha no GitHub Actions
 
-1. Limpe o cache do navegador (Ctrl + Shift + R)
-2. Aguarde alguns minutos (pode demorar até 10 minutos)
-3. Verifique se o deploy foi bem-sucedido:
-   ```bash
-   git log --oneline
-   ```
-4. Verifique se a branch `gh-pages` foi atualizada no GitHub
+1. Acesse a aba "Actions" no seu repositório
+2. Clique no workflow que falhou para ver os logs
+3. Teste localmente: `npm run build`
+4. Verifique se não há erros de TypeScript
 
 ### Imagens não aparecem
 
-Certifique-se de que:
-- As imagens estão na pasta `public/`
-- Os caminhos começam com `/` (ex: `/foto_perfil.jpg`)
-- Você fez o build e deploy após adicionar as imagens
+- Coloque as imagens na pasta `public/`
+- Use caminhos começando com `/` (ex: `/foto_perfil.jpg`)
+- Atualize o caminho em `src/data/portfolio-info.ts`
 
-### Ver todas as branches
+### Verificar status do deploy
 
-```bash
-# Ver branches locais
-git branch
+Acesse: `https://github.com/{seu-usuario}/{seu-repositorio}/actions`
 
-# Ver branches remotas
-git branch -r
+Você verá:
+- ✅ Deploy bem-sucedido (verde)
+- ⏳ Deploy em andamento (amarelo)
+- ❌ Deploy falhou (vermelho) - clique para ver os logs
 
-# Ver todas as branches
-git branch -a
-```
+## 📝 Checklist
 
----
+- [ ] Personalizei `src/data/portfolio-info.ts`
+- [ ] Criei meu repositório no GitHub
+- [ ] Configurei o remote origin
+- [ ] Fiz commit e push
+- [ ] Configurei GitHub Pages para "GitHub Actions"
+- [ ] Aguardei alguns minutos
+- [ ] Meu site está acessível
 
-## 📝 Checklist de Deploy
+## 💡 Dicas
 
-- [ ] Repositório criado no GitHub
-- [ ] Git inicializado localmente
-- [ ] Arquivos commitados
-- [ ] Remote origin configurado
-- [ ] Push para o GitHub realizado
-- [ ] `npm run deploy` executado com sucesso
-- [ ] GitHub Pages configurado (se Opção 2)
-- [ ] Site acessível na URL
+1. **Teste localmente** antes de fazer push:
+   ```bash
+   npm run build
+   npm run preview
+   ```
 
----
+2. **Personalize tudo** em `src/data/portfolio-info.ts` - é só um arquivo!
 
-## 🎉 Pronto!
+3. **Acompanhe os deploys** na aba Actions do GitHub
 
-Seu portfólio está no ar! Compartilhe o link:
+4. **Mantenha atualizado** - adicione novos projetos e experiências regularmente
 
-**https://{username}.github.io**
+## 📚 Mais Informações
 
-Para personalizar o conteúdo, edite: `src/data/portfolio-info.ts`
+- Personalização detalhada: [CUSTOMIZATION.md](CUSTOMIZATION.md)
+- Solução de problemas: [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
+- README do projeto: [README.md](README.md)
