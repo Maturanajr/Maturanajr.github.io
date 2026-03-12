@@ -9,6 +9,7 @@ export const personalInfo = {
   location: 'Sorocaba, SP',
   profileImage: '/foto_perfil.jpg',
   logo: 'AM',
+  resumeUrl: '/curriculo.pdf',
 };
 
 // Menu de Navegação

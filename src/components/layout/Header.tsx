@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import DarkModeToggle from '../ui/DarkModeToggle';
 import { menuItems, personalInfo } from '../../data/portfolio-info';
+import { generateResumePDF } from '../../utils/generateResumePDF';
 
 const Header = () => {
   const { isDark } = useTheme();
@@ -55,6 +56,14 @@ const Header = () => {
                 {item.label}
               </button>
             ))}
+            <button
+              onClick={generateResumePDF}
+              className={`px-4 py-2 rounded-lg transition-all duration-300 border-2 border-blue-600 hover:bg-blue-600 hover:text-white ${
+                isDark ? 'text-blue-400' : 'text-blue-600'
+              }`}
+            >
+              Baixar CV
+            </button>
             <DarkModeToggle />
           </div>
 
@@ -90,6 +99,14 @@ const Header = () => {
                 {item.label}
               </button>
             ))}
+            <button
+              onClick={generateResumePDF}
+              className={`block w-full text-center px-4 py-2 rounded-lg border-2 border-blue-600 transition-all duration-300 hover:bg-blue-600 hover:text-white ${
+                isDark ? 'text-blue-400' : 'text-blue-600'
+              }`}
+            >
+              Baixar CV
+            </button>
           </div>
         )}
       </nav>
