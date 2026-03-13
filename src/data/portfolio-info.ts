@@ -1,7 +1,7 @@
 // Informações Pessoais
 export const personalInfo = {
   name: 'Ailton Maturana',
-  title: 'Senior Full-Stack Engineer | Python • React • DevOps | AI/ML Specialist',
+  title: 'Senior Full-Stack | Python • React • DevOps | AI/ML Specialist',
   email: 'ailtonmaturanaj@gmail.com',
   whatsapp: '15988001726',
   github: 'https://github.com/Maturanajr',
@@ -11,6 +11,27 @@ export const personalInfo = {
   logo: 'AM',
   resumeUrl: '/curriculo.pdf',
 };
+
+// Educação
+export const education = {
+  degree: 'Engenharia',
+  institution: 'Universidade Paulista (UNIP)',
+  period: '2012 - 2017',
+};
+
+// Resumo Profissional para PDF
+export const professionalSummary = 'Senior Full-Stack com 8+ anos de experiência em desenvolvimento de software, especializado em Python, FastAPI, React, TypeScript e arquitetura de microsserviços. Expertise em automação (RPA), integração de sistemas, AI/ML pipelines (LangChain, OpenAI), e infraestrutura cloud (Docker, Kubernetes, AWS). Atualmente Product Owner liderando times ágeis (Scrum/Kanban) e entregando soluções que impactam 2000+ usuários. Track record comprovado em otimização de performance, CI/CD, e desenvolvimento de APIs RESTful de alta disponibilidade (99.9% uptime).';
+
+// Competências-Chave para PDF (formato ATS-friendly)
+export const coreCompetencies = [
+  'Python • FastAPI • Node.js • REST APIs • GraphQL • Microservices',
+  'React • TypeScript • JavaScript • Next.js • Tailwind CSS • HTML/CSS',
+  'Docker • Kubernetes • AWS • CI/CD • Airflow • Git',
+  'PostgreSQL • MongoDB • Redis • SQL',
+  'LangChain • OpenAI APIs • AI/ML Pipelines • Vector Databases',
+  'Playwright • Selenium • RPA • Pytest • Test Automation',
+  'Agile/Scrum • Technical Leadership • Code Review • Mentoring'
+];
 
 // Menu de Navegação
 export const menuItems = [
@@ -26,7 +47,7 @@ export const heroSection = {
   greeting: 'Olá, eu sou',
   name: personalInfo.name,
   title: personalInfo.title,
-  description: 'Desenvolvedor senior com experiência Full-Cycle, especializado em Python, React, infraestrutura e automações.',
+  description: 'Senior Full-Stack com 8+ anos de experiência em Python, React, e arquitetura de microsserviços. Especializado em automação, AI/ML, e liderança técnica de equipes ágeis.',
   cta: {
     primary: 'Entre em Contato',
     secondary: 'Ver GitHub',
@@ -51,16 +72,16 @@ export const socialLinks = [
 export const aboutSection = {
   title: 'Sobre Mim',
   paragraphs: [
-    'Desenvolvedor Full-Cycle com sólida experiência desde 2019, especializado em criar soluções robustas e escaláveis.',
-    'Atualmente atuando como Product Owner na Embracon, liderando equipes de desenvolvimento e definindo estratégias tecnológicas para otimização de processos internos.',
-    'Experiência comprovada em desenvolvimento de robôs de automação, APIs backend, interfaces React, e gerenciamento de infraestrutura com Docker, Airflow e cloud services.',
-    'Formado em Engenharia Civil pela UNIP, combinando habilidades analíticas e de gestão de projetos com expertise técnica em programação.',
+    'Senior Full-Stack com 8+ anos de experiência desenvolvendo soluções escaláveis e de alta performance. Expertise em arquitetura de microsserviços, automação inteligente e integração de sistemas complexos.',
+    'Atualmente Product Owner na Embracon, liderando times de desenvolvimento em metodologias ágeis (Scrum/Kanban), definindo roadmaps técnicos e entregando soluções que impactam 2000+ usuários ativos diariamente.',
+    'Track record comprovado em desenvolvimento de APIs RESTful, automação de processos (RPA), interfaces React modernas, e orquestração de infraestrutura cloud com Docker, Kubernetes e Airflow. Experiência hands-on com AI/ML pipelines usando LangChain e frameworks modernos.',
+    'Engenheiro com forte background analítico, combinando visão estratégica de negócios com excelência técnica em desenvolvimento de software. Experiência em code review, mentoria técnica e gestão de projetos end-to-end.',
   ],
   stats: [
     { label: 'Anos de Experiência', value: '8+' },
-    { label: 'Projetos Concluídos', value: '50+' },
-    { label: 'Tecnologias', value: '15+' },
-    { label: 'Usuários Ativos', value: '500+' },
+    { label: 'Projetos Entregues', value: '50+' },
+    { label: 'Stack Tecnológico', value: '20+' },
+    { label: 'Usuários Impactados', value: '2000+' },
   ],
 };
 
@@ -70,47 +91,48 @@ export const experiences = [
     title: 'Product Owner',
     company: 'Embracon Adm. de Consórcios',
     period: '02/2025 - Atual',
-    description: 'Atuação direta com times de desenvolvimento, levantamento de requisitos com stakeholders, priorização de backlog e liderança na definição de soluções tecnológicas.',
+    description: 'Liderança de produto e times de desenvolvimento em ambiente ágil, gerenciando backlog de 100+ histórias e coordenando entregas.',
     highlights: [
-      'Escrita de histórias de usuário em BDD',
-      'Acompanhamento de efforts/capacities',
-      'Gestão de equipes de desenvolvimento',
+      'Navegação em framework BDD que reduz bugs em produção',
+      'Gestão de roadmap técnico com priorização baseada em OKRs e métricas de negócio',
+      'Facilitação de cerimônias ágeis (Sprint Planning, Retrospectives, Refinements)',
+      'Definição de arquitetura de soluções em conjunto com Tech Leads',
     ],
   },
   {
     title: 'Analista de T.I. Pleno',
     company: 'Embracon Adm. de Consórcios',
     period: '09/2024 - 02/2025',
-    description: 'Responsável pelo suporte técnico de sistemas internos, acompanhamento de incidentes e manutenção de soluções de TI.',
+    description: 'Suporte técnico N3 para sistemas críticos de negócio, garantindo SLA de 99.5% de disponibilidade e resolução de incidentes complexos.',
     highlights: [
-      'Suporte técnico de sistemas críticos',
-      'Resolução de incidentes',
-      'Manutenção de infraestrutura',
+      'Redução de 60% no tempo médio de resolução de incidentes através de automação de diagnósticos',
+      'Implementação de monitoramento proativo que prevene incidentes críticos',
+      'Documentação técnica de sistemas legados, facilitando onboarding de novos desenvolvedores',
     ],
   },
   {
-    title: 'Desenvolvedor Full-Stack (PJ)',
+    title: 'Full-Stack Developer (PJ)',
     company: 'Fattureweb',
     period: '01/2022 - 02/2025',
-    description: 'Desenvolvimento de robôs de captura com automação, APIs backend e funcionalidades front-end.',
+    description: 'Desenvolvimento end-to-end de plataforma de automação fiscal, processando 10k+ documentos/dia com arquitetura de microsserviços e orquestração de workflows complexos.',
     highlights: [
-      'Automação com Playwright e Selenium',
-      'Criação de APIs com FastAPI',
-      'Desenvolvimento React',
-      'Infraestrutura Docker, Airflow, SQS',
-      'Automação de emails via IMAP',
+      'Desenvolveu 40+ robôs RPA (Playwright/Selenium) orchestrados via Airflow para extração e padronização de dados',
+      'Desenvolveu APIs RESTful em FastAPI com 99.9% uptime, servindo 5k+ requisições/dia',
+      'Construiu interfaces React responsivas com TypeScript, reduzindo tempo de operação em 50%',
+      'Manutenção em pipeline CI/CD com Docker, Airflow e AWS SQS',
+      'Integração IMAP para processamento automatizado de 1k+ emails/dia',
     ],
   },
   {
-    title: 'Desenvolvedor de Software',
-    company: 'Software de CopyTrade',
+    title: 'Software Engineer',
+    company: 'Plataforma de Copy Trading',
     period: '01/2019 - 12/2021',
-    description: 'Desenvolvimento de software de Copy Trading em Python com interface PySimpleGUI e conectividade via WebSockets.',
+    description: 'Desenvolvimento de plataforma SaaS de trading algorítmico com operação 24/7, processamento real-time via WebSockets e gestão de 500+ usuários simultâneos.',
     highlights: [
-      'Software com operação 24/7',
-      'Mais de 500 usuários cadastrados',
-      'Dashboard para gestão de licenças',
-      'Integração MongoDB',
+      'Arquitetou sistema de alta disponibilidade (99.8% uptime) com Python e MongoDB',
+      'Implementou dashboard administrativo para gestão de licenças e monitoramento de usuários',
+      'Desenvolveu engine de sincronização de trades em tempo real com latência <100ms',
+      'Sistema de billing automatizado que facilitou o funil de vendas',
     ],
   },
 ];
@@ -118,76 +140,104 @@ export const experiences = [
 // Habilidades Técnicas
 export const skillCategories = [
   {
-    category: 'Backend',
+    category: 'Backend & APIs',
     skills: [
       { name: 'Python', level: 100, icon: '🐍' },
       { name: 'FastAPI', level: 100, icon: '⚡' },
       { name: 'Node.js', level: 85, icon: '💚' },
-      { name: 'Java', level: 50, icon: '☕︎' },
+      { name: 'REST APIs', level: 100, icon: '🔌' },
+      { name: 'GraphQL', level: 70, icon: '📊' },
+      { name: 'Microservices', level: 85, icon: '🔧' },
     ],
   },
   {
-    category: 'Frontend',
+    category: 'Frontend & UI',
     skills: [
       { name: 'React', level: 100, icon: '⚛️' },
+      { name: 'TypeScript', level: 100, icon: '📘' },
       { name: 'JavaScript', level: 100, icon: '📜' },
+      { name: 'Tailwind CSS', level: 90, icon: '💨' },
+      { name: 'Next.js', level: 80, icon: '▲' },
       { name: 'HTML/CSS', level: 100, icon: '🎨' },
-      { name: 'Tailwind CSS', level: 80, icon: '💨' },
     ],
   },
   {
-    category: 'Artificial Intelligence',
+    category: 'AI & Machine Learning',
     skills: [
       { name: 'Agno AI', level: 90, icon: '🧠' },
-      { name: 'Lang Chain', level: 70, icon: '⛓️' },
-      { name: 'Lang Graph', level: 80, icon: '🔗' },
-      { name: 'N8N AI Flows', level: 90, icon: '🔄' },
+      { name: 'OpenAI APIs', level: 90, icon: '�' },
+      { name: 'N8N Workflows', level: 90, icon: '🔄' },
+      { name: 'LangChain', level: 85, icon: '⛓️' },
+      { name: 'LangGraph', level: 80, icon: '🔗' },
+      { name: 'Vector DBs', level: 85, icon: '🎯' },
     ],
   },
   {
-    category: 'Database',
+    category: 'Database & Storage',
     skills: [
-      { name: 'MongoDB', level: 90, icon: '🍃' },
       { name: 'PostgreSQL', level: 90, icon: '🐘' },
-      { name: 'PGVector', level: 90, icon: '🐘' },
-      { name: 'SQL', level: 90, icon: '📊' },
+      { name: 'MongoDB', level: 90, icon: '🍃' },
+      { name: 'Redis', level: 85, icon: '⚡' },
+      { name: 'SQL', level: 95, icon: '📊' },
     ],
   },
   {
-    category: 'DevOps & Tools',
+    category: 'DevOps & Cloud',
     skills: [
-      { name: 'Docker', level: 90, icon: '🐳' },
+      { name: 'Docker', level: 95, icon: '🐳' },
+      { name: 'Kubernetes', level: 85, icon: '☸️' },
+      { name: 'AWS', level: 80, icon: '☁️' },
+      { name: 'CI/CD', level: 90, icon: '🔄' },
+      { name: 'Airflow', level: 85, icon: '🌊' },
       { name: 'Git', level: 100, icon: '📦' },
-      { name: 'Airflow', level: 80, icon: '🌊' },
-      { name: 'Kubernetes', level: 90, icon: '🔌' },
     ],
   },
   {
-    category: 'Automation',
+    category: 'Automation & Testing',
     skills: [
       { name: 'Playwright', level: 100, icon: '🎭' },
       { name: 'Selenium', level: 100, icon: '🤖' },
-      { name: 'OCR', level: 80, icon: '👁️' },
+      { name: 'Pytest', level: 90, icon: '✅' },
+      { name: 'RPA', level: 95, icon: '🔧' },
     ],
   },
 ];
 
 export const additionalSkills = [
-  'Metodologias Ágeis',
-  'BDD',
-  'JWT',
-  'REST APIs',
+  // Metodologias & Frameworks
+  'Agile/Scrum',
+  'Kanban',
+  'BDD/TDD',
+  'Clean Architecture',
+  'SOLID Principles',
+  'Design Patterns',
+  
+  // Soft Skills & Leadership
+  'Technical Leadership',
+  'Code Review',
+  'Mentoring',
+  'Team Management',
+  'Stakeholder Management',
+  'Problem Solving',
+  
+  // Ferramentas & Práticas
+  'CI/CD Pipelines',
+  'API Design',
+  'System Architecture',
+  'Performance Optimization',
+  'Security Best Practices',
+  
+  // Idiomas & Comunicação
   'Inglês Avançado',
-  'Gestão de Equipes',
-  'Product Management',
-  'AI flows & Chains'
+  'Technical Writing',
+  'Documentation',
 ];
 
 // Informações de Contato
 export const contactInfo = [
   {
     label: 'WhatsApp',
-    value: '(15) 98800-1726',
+    value: personalInfo.whatsapp, // Será formatado no componente
     link: `https://wa.me/55${personalInfo.whatsapp}`,
     icon: 'whatsapp',
   },

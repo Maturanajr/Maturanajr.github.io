@@ -4,6 +4,7 @@ import Card from '../ui/Card';
 import Button from '../ui/Button';
 import { contactInfo, contactSection, personalInfo } from '../../data/portfolio-info';
 import { renderContactIcon } from '../ui/Icons';
+import { formatWhatsApp } from '../../utils/formatters';
 
 interface FormData {
   message: string;
@@ -66,7 +67,7 @@ const Contact = () => {
                           {info.label}
                         </p>
                         <p className={`font-medium ${isDark ? 'text-gray-200' : 'text-gray-900'}`}>
-                          {info.value}
+                          {info.icon === 'whatsapp' ? formatWhatsApp(info.value) : info.value}
                         </p>
                       </div>
                     </a>
@@ -78,7 +79,7 @@ const Contact = () => {
                           {info.label}
                         </p>
                         <p className={`font-medium ${isDark ? 'text-gray-200' : 'text-gray-900'}`}>
-                          {info.value}
+                          {info.icon === 'whatsapp' ? formatWhatsApp(info.value) : info.value}
                         </p>
                       </div>
                     </div>
