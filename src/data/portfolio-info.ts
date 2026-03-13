@@ -8,8 +8,7 @@ export const personalInfo = {
   githubUsername: 'Maturanajr',
   location: 'Sorocaba, SP',
   profileImage: '/foto_perfil.jpg',
-  logo: 'AM',
-  resumeUrl: '/curriculo.pdf',
+  logo: 'AM'
 };
 
 // Educação
