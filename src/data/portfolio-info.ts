@@ -1,7 +1,7 @@
 // Informações Pessoais
 export const personalInfo = {
   name: 'Ailton Maturana',
-  title: 'Desenvolvedor Full-Cycle',
+  title: 'Senior Full-Stack Engineer | Python • React • DevOps | AI/ML Specialist',
   email: 'ailtonmaturanaj@gmail.com',
   whatsapp: '15988001726',
   github: 'https://github.com/Maturanajr',
@@ -136,10 +136,20 @@ export const skillCategories = [
     ],
   },
   {
+    category: 'Artificial Intelligence',
+    skills: [
+      { name: 'Agno AI', level: 90, icon: '🧠' },
+      { name: 'Lang Chain', level: 70, icon: '⛓️' },
+      { name: 'Lang Graph', level: 80, icon: '🔗' },
+      { name: 'N8N AI Flows', level: 90, icon: '🔄' },
+    ],
+  },
+  {
     category: 'Database',
     skills: [
       { name: 'MongoDB', level: 90, icon: '🍃' },
       { name: 'PostgreSQL', level: 90, icon: '🐘' },
+      { name: 'PGVector', level: 90, icon: '🐘' },
       { name: 'SQL', level: 90, icon: '📊' },
     ],
   },
@@ -158,7 +168,6 @@ export const skillCategories = [
       { name: 'Playwright', level: 100, icon: '🎭' },
       { name: 'Selenium', level: 100, icon: '🤖' },
       { name: 'OCR', level: 80, icon: '👁️' },
-      { name: 'Agno AI', level: 80, icon: '֎' },
     ],
   },
 ];
