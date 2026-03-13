@@ -69,8 +69,8 @@ const Hero = () => {
             {personalInfo.name}
           </h1>
           
-          <div className="h-12 mb-8">
-            <h2 className="text-2xl md:text-3xl font-semibold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <div className="min-h-12 md:h-12 mb-8">
+            <h2 className="text-xl md:text-3xl font-semibold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               {displayText}
               <span className="animate-pulse">|</span>
             </h2>
