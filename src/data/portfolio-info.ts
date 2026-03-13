@@ -16,7 +16,7 @@ export const personalInfo = {
 export const education = {
   degree: 'Engenharia',
   institution: 'Universidade Paulista (UNIP)',
-  period: '2012 - 2017',
+  period: '2017 - 2022',
 };
 
 // Resumo Profissional para PDF
